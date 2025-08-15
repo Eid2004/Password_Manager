@@ -1,0 +1,20 @@
+CREATE TABLE users(
+	id INT NOT NULL UNIQUE,
+	fname VARCHAR(100) NOT NULL,
+	lname VARCHAR(100) NOT NULL,
+	email VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(200) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE passwords(
+	id INT NOT NULL UNIQUE,
+	user_id INT NOT NULL,
+	platforme_name VARCHAR(100) NOT NULL,
+	platforme_username VARCHAR(100),
+	platform_password VARCHAR(200),
+	notes VARCHAR(500),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(id),
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);

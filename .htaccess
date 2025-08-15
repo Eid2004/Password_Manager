@@ -1,0 +1,48 @@
+RewriteEngine On
+
+RewriteRule ^$ index [L]
+#################################################################
+# Auth File
+RewriteRule ^login$ auth/login.php [L]
+RewriteRule ^login_process$ auth/login_process.php [L]
+
+RewriteRule ^register$ auth/register.php [L]
+RewriteRule ^register_process$ auth/register_process.php [L]
+
+RewriteRule ^logout$ auth/logout.php [L]
+
+#################################################################
+# Public Files && Handlers
+RewriteRule ^home$ public/home.php [L]
+
+RewriteRule ^myAccount$ public/myAccount.php [L]
+
+RewriteRule ^delete$ handlers/delete.php [L]
+
+RewriteRule ^storePass$ public/storePass.php [L]
+RewriteRule ^store_pass_handel$ handlers/store_pass_handel.php [L]
+
+RewriteRule ^generatePass$ public/generatePass.php [L]
+RewriteRule ^generate_pass_handel$ handlers/store_pass_handel.php [L]
+
+RewriteRule ^updatePass$ public/updatePass.php [L]
+RewriteRule ^update_pass_handel$ handlers/update_pass_handel.php [L]
+
+RewriteRule ^viewPasswords$ public/viewPasswords.php [L]
+
+#################################################################
+# Check if it a real file or folder
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
+#################################################################
+# Prevent direct access to certain directories
+RewriteCond %{REQUEST_URI} !^/Password_Manager/public(/|$)
+RewriteCond %{REQUEST_URI} !^/Password_Manager/auth(/|$)
+RewriteCond %{REQUEST_URI} !^/Password_Manager/assets(/|$)
+RewriteCond %{REQUEST_URI} !^/Password_Manager/index\.php$
+RewriteCond %{REQUEST_URI} !^/Password_Manager/test\.php$
+RewriteCond %{REQUEST_URI} !^/Password_Manager/handlers(/|$)
+RewriteCond %{REQUEST_URI} !^/Password_Manager/.htaccess
+RewriteRule ^.*$ - [F,L]
